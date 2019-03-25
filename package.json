@@ -1,0 +1,35 @@
+{
+  "name": "nodeoops",
+  "version": "1.0.0",
+  "description": "this application building for completely oops concept in mvc architecture",
+  "main": "app.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rk784578/nodeApiModlesWithOOPSConcept.git"
+  },
+  "keywords": [
+    "node",
+    "oops",
+    "mvc"
+  ],
+  "dependencies": {
+    "body-parser": "x.x.x",
+    "cfenv": "1.0.x",
+    "express": "^4.16.3",
+    "nodemailer": "x.x.x",
+    "request": "x.x.x",
+    "instamojo": "^1.0.1",
+    "instamojo-nodejs": "0.0.5",
+    "multer": "x.x.x",
+    "path": "x.x.x"
+  },
+  "author": "radhakrishna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rk784578/nodeApiModlesWithOOPSConcept/issues"
+  },
+  "homepage": "https://github.com/rk784578/nodeApiModlesWithOOPSConcept#readme"
+}
