@@ -1,6 +1,13 @@
 let REQURIED_MODULE = require('./public/services/nodemodules.js');
 
 let app = REQURIED_MODULE.express();
+// it will get process env varables 
+//https://www.npmjs.com/package/dotenv
+/**
+ * For this crate a .env file and give the key and value  
+ * Call the below  path it will  call the procee varabiles
+ */
+require('dotenv').config()
 
 app.use(REQURIED_MODULE.express.static(__dirname + '/public'));
 app.use(REQURIED_MODULE.bodyParser.urlencoded({
@@ -23,7 +30,9 @@ app.use(REQURIED_MODULE.bodyParser.json());
 let routes = require('./public/routes/routes.js');
 
 app.post('/signUp',routes.signUp);
-app.post('/login',routes.login);
+app.get('/login',routes.login);
+app.put('/update',routes.update);
+app.get('/getAll',routes.getAll);
 
 
 // start server on the specified port and binding host
