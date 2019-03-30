@@ -26,6 +26,9 @@ app.use(function(req, res, next) {
 // our Angular code is sending JSON data, but your Express app is parsing it as
 // URL encoded data.
 app.use(REQURIED_MODULE.bodyParser.json());
+app.get('/',(req,res)=>{
+     res.sendFile('./public/index.html');
+})
 
 let routes = require('./public/routes/routes.js');
 
@@ -36,7 +39,7 @@ app.get('/getAll',routes.getAll);
 
 
 // start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function() {
+app.listen(8888, '0.0.0.0', function() {
 // app.listen(3000, 'localhost', function() { //test locally
   // print a message when the server starts listening
   console.log("server starting on " + appEnv.url);
