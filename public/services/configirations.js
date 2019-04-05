@@ -1,5 +1,4 @@
 
-
 module.exports = {
    
    urlCloud:process.env.COUCH_API,
