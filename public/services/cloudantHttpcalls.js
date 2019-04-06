@@ -17,18 +17,16 @@ exports.createRecord = (url,data,cb)=>{
          	cb(null,err);
          }else{
                if(res.statusCode == 201){
-                  cb(null,response_handle.created);
+                  cb(null,{code:res.statusCode,message:response_handle.created});
                }if(res.statusCode == 409){
-                   cb(null,response_handle.conflit);  
+                   cb(null,{code:res.statusCode,message:response_handle.conflit});  
                }
-         	
          }
    })
 };
 
 exports.fetchLoginData = (url,cb)=>{   
 
-      console.log(url);
     REQURIED_MODULE.http({
           uri:url,
           method:"GET",
@@ -42,9 +40,9 @@ exports.fetchLoginData = (url,cb)=>{
                 if(res.statusCode == 200){
                    cb(null,{code:res.statusCode,message:JSON.parse(body)});
                 }if(res.statusCode == 409){
-                    cb(null,response_handle.conflit);  
+                    cb(null,{code:res.statusCode,message:response_handle.conflit});  
                 }if(res.statusCode == 400){
-                  cb(null,response_handle.bad);  
+                  cb(null,{code:res.statusCode,message:response_handle.bad});  
               }
                 
           }
@@ -64,9 +62,9 @@ exports.fetchLoginData = (url,cb)=>{
                 cb(null,err);
           }else{
                 if(res.statusCode == 201){
-                   cb(null,response_handle.update);
+                   cb(null,{code:res.statusCode,message:response_handle.update});
                 }if(res.statusCode == 409){
-                    cb(null,response_handle.conflit);  
+                    cb(null,{code:res.statusCode,message:response_handle.conflit});  
                 }
                
                 
@@ -76,7 +74,6 @@ exports.fetchLoginData = (url,cb)=>{
 
  exports.getAll = (url,cb)=>{   
 
-      console.log(url);
     REQURIED_MODULE.http({
           uri:url,
           method:"GET",

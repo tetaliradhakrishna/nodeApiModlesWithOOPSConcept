@@ -1,6 +1,6 @@
 let url_config =require('../services/configirations.js');
 let DB_CALLS = require('../services/cloudantHttpcalls.js');
-let register_userDatabase = 'logins/';
+let register_userDatabase = '/logins/';
 let design_Doc = '_design/s4SolutionsDesDoc/_view/'
 let fetch_Query = 'fetchLogin?key=';
 

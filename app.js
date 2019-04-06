@@ -7,6 +7,7 @@ let app = REQURIED_MODULE.express();
  * For this crate a .env file and give the key and value  
  * Call the below  path it will  call the procee varabiles
  */
+require('dotenv').config()
 
 app.use(REQURIED_MODULE.express.static(__dirname + '/public'));
 app.use(REQURIED_MODULE.bodyParser.urlencoded({
