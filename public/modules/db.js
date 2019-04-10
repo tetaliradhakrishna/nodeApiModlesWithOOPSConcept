@@ -1,27 +1,31 @@
 let url_config =require('../services/configirations.js');
-let DB_CALLS = require('../services/cloudantHttpcalls.js');
-let register_userDatabase = '/logins/';
+let CLOUDANT_DB_CALLS = require('../services/cloudantHttpcalls.js');
+let MONGO_DB_CALLS = require('../services/mongoDbhttpCalls.js');
+// collection 
+let register_userDatabase = 'dblogins';
+// DB Name
+let Data_Base = "s4Solutions";
 let design_Doc = '_design/s4SolutionsDesDoc/_view/'
 let fetch_Query = 'fetchLogin?key=';
 
 
 exports.createRegisterUser = (data,cb)=>{ 
-             // this  accepts  URL + db + collection + data 
-           DB_CALLS.createRecord(url_config.urlCloud + register_userDatabase,data, cb)	
+             // this  accepts  URL ,db , collection , data 
+             MONGO_DB_CALLS.createRecord(url_config.MONGO_DB,Data_Base,register_userDatabase,data, cb)	
 };
 
 exports.getLoginData = (data,cb)=>{ 
   // this  accepts  URL + db + collection + data 
-DB_CALLS.fetchLoginData(url_config.urlCloud + register_userDatabase + design_Doc + fetch_Query + data , cb)	
+  MONGO_DB_CALLS.fetchLoginData(url_config.MONGO_DB ,Data_Base,register_userDatabase,data, cb)	
 };
 
 exports.updateData = (data,cb)=>{ 
   // this  accepts  URL + db + collection + data 
-DB_CALLS.updateData(url_config.urlCloud + register_userDatabase +data._id , data , cb)	
+  CLOUDANT_DB_CALLS.updateData(url_config.MONGO_DB + register_userDatabase +data._id , data , cb)	
 };
 exports.getAll = (cb)=>{ 
   // this  accepts  URL + db + collection + data 
-DB_CALLS.getAll(url_config.urlCloud + register_userDatabase + design_Doc + 'getAllDocs', cb)	
+  CLOUDANT_DB_CALLS.getAll(url_config.MONGO_DB + register_userDatabase + design_Doc + 'getAllDocs', cb)	
 };
 
 

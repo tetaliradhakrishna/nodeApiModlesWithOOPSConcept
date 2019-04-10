@@ -1,35 +1,70 @@
 
 let REQURIED_MODULE = require('../services/nodemodules.js');
 
- exports.createRecord = (url,dataBase,collection,data,cb)=>{
+exports.createRecord = (url, dataBase, collection, data, cb) => {
 	//console.log('URL'+ url);
- 
-REQURIED_MODULE.MongoClient.connect(url, function(err, db) {
 
-		  var dbo = db.db(dataBase);
-		  var myobj = data;
+	REQURIED_MODULE.MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 
-		  dbo.collection(collection).insert(myobj, function(err, res) {
-		    if (err){
-		    	 throw err;
-		    	 message = "Oops!.. somthing went wrong " + err;
-		    	 cb(null, message);
-		    	 } else{
-		    		message =  "1 document inserted " + dataBase + collection;
-		 		    //console.log(message);
-		 		     if( res.result.ok == 1){
-		 		    	    //console.log("inside if ");
-		 		    	 res ={
-		 		    			statusCode:201,
-		 		    			statusMessage:"Data submitted successfully."
-		 		    	 }
-		 		    	 cb(null,res);
-		 		     }
-		    	 };
-		    	 db.close();
-		     });
-});
+		let dbo = db.db(dataBase);
+		let myobj = data;
+		let backStatus;
+		dbo.collection(collection).insertOne(myobj, function (err, res) {
+			if (err) {
 
+				backStatus = {
+					code: 400,
+					message: "Oops!.. somthing went wrong " + err
+				}
+
+				cb(null, backStatus);
+			} else {
+				if (res.result.ok == 1) {
+					console.log("inside if ");
+					backStatus = {
+						code: 201,
+						message: "Data submitted successfully."
+					}
+					cb(null, backStatus);
+				}
+			};
+			db.close();
+		});
+	});
+};
+
+exports.fetchLoginData = (url, dataBase, collection, data, cb) => {
+
+	console.log(url,data);
+	
+	REQURIED_MODULE.MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+
+		let dbo = db.db(dataBase);
+		let myobj = { _id: data };
+		let backStatus;
+
+		dbo.collection(collection).findOne(myobj, function (err, res) {
+			if (err) {
+
+				backStatus = {
+					code: 400,
+					message: "Oops!.. somthing went wrong " + err
+				}
+
+				cb(null, backStatus);
+			} else {
+			
+					//console.log('res',res);
+					backStatus ={
+						code:200,
+						message:res
+					}
+					cb(null, backStatus);
+				}
+		
+			db.close();
+		});
+	});
 
 
 };

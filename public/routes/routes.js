@@ -19,7 +19,7 @@ exports.login = (req,res)=>{
         if(err){
           res.send(err);
         }else{
-            res.status(result.code).send({message:result.message});
+            res.status(result.code).send(result.message);
         }
   })
 };

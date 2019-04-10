@@ -7,6 +7,7 @@ module.exports = {
    COUCH_PROTOCAL:'http',
    COUCH_PORT:process.env.COUCH_PORT,
    COUCH_USERNAME:'',
-   COUCH_PASSWORD:''
+   COUCH_PASSWORD:'',
+   MONGO_DB:process.env.MONGO_HOST
 
 }
