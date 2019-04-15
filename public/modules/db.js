@@ -21,7 +21,7 @@ exports.getLoginData = (data,cb)=>{
 
 exports.updateData = (data,cb)=>{ 
   // this  accepts  URL + db + collection + data 
-  CLOUDANT_DB_CALLS.updateData(url_config.MONGO_DB + register_userDatabase +data._id , data , cb)	
+  MONGO_DB_CALLS.updateData(url_config.MONGO_DB ,Data_Base ,register_userDatabase ,data._id , data , cb)	
 };
 exports.getAll = (cb)=>{ 
   // this  accepts  URL + db + collection + data 

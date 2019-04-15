@@ -29,7 +29,7 @@ exports.login = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  //console.log(req.query.id)
+ // console.log(req.body)
 
   CONNECT_DB.updateData(req.body, (err, result) => {
     if (err) {
@@ -38,9 +38,7 @@ exports.update = (req, res) => {
       res.status(result.code).send({ message: result.message });
     }
     res.end();
-
-  })
-
+    })
 };
 
 exports.getAll = (req, res) => {

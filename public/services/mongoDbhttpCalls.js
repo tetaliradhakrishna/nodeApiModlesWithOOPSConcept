@@ -97,7 +97,27 @@ exports.getAllRecords = (url, dataBase, collection, cb) => {
 
 		// If the item not is null then the cursor is exhausted/empty and closed
 
-
-
 	});
+};
+
+exports.updateData = (url, dataBase, collection,id,data, cb) => {
+	REQURIED_MODULE.MongoClient.connect(url, function(err, db) {
+		if (err) throw err;
+		var dbo = db.db(dataBase);
+		// this is the  existing name feild  
+		var myquery = { _id:id };
+		// new values passing to the db and updating. 
+		var newvalues = { $set: data};
+		dbo.collection(collection).updateOne(myquery, newvalues, function(err, res) {
+		  if (err) throw err;
+		  console.log("1 document updated");
+		  backStatus = {
+			code: 200,
+			message: 'updated'
+		}
+		  cb(null,backStatus)
+		  db.close();
+		});
+	  });
+
 }
