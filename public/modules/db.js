@@ -25,7 +25,8 @@ exports.updateData = (data,cb)=>{
 };
 exports.getAll = (cb)=>{ 
   // this  accepts  URL + db + collection + data 
-  CLOUDANT_DB_CALLS.getAll(url_config.MONGO_DB + register_userDatabase + design_Doc + 'getAllDocs', cb)	
+  // couch get veiw call design_Doc + 'getAllDocs'
+  MONGO_DB_CALLS.getAllRecords(url_config.MONGO_DB, Data_Base , register_userDatabase , cb)	
 };
 
 
