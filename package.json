@@ -27,7 +27,8 @@
     "nodemon": "^1.18.10",
     "path": "x.x.x",
     "request": "x.x.x",
-    "mongodb":"x.x.x"
+    "mongodb":"x.x.x",
+    "cors":"x.x.x"
   },
   "author": "radhakrishna",
   "license": "ISC",
