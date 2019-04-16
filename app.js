@@ -8,7 +8,7 @@ let app = REQURIED_MODULE.express();
  * Call the below  path it will  call the procee varabiles
  */
 require('dotenv').config()
-
+app.use(REQURIED_MODULE.cors())
 app.use(REQURIED_MODULE.express.static(__dirname + '/public'));
 app.use(REQURIED_MODULE.bodyParser.urlencoded({
   extended: true
@@ -16,6 +16,7 @@ app.use(REQURIED_MODULE.bodyParser.urlencoded({
 
 // get the app environment from Cloud Foundry
 let appEnv = REQURIED_MODULE.cfenv.getAppEnv();
+
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

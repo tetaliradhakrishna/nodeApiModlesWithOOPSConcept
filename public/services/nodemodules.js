@@ -7,6 +7,7 @@ module.exports= {
     path : require('path'),
     bodyParser:require('body-parser'),
     MongoClient:require('mongodb').MongoClient,
-    http:require('request')
+    http:require('request'),
+    cors:require('cors')
 
 }

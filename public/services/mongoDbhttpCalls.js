@@ -72,6 +72,7 @@ exports.fetchLoginData = (url, dataBase, collection, data, cb) => {
 
 exports.getAllRecords = (url, dataBase, collection, cb) => {
 	REQURIED_MODULE.MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+		//console.log('why this calling ');
 		if (err) throw err;
 		var dbo = db.db(dataBase);
 		var cursor = dbo.collection(collection).find();
@@ -82,7 +83,7 @@ exports.getAllRecords = (url, dataBase, collection, cb) => {
 
 			if (item !== null) {
 				FinalData.push(item);
-				console.log('still pushing....');
+				//console.log('still pushing....');
 			} else {
 				console.log('no more records')
 				backStatus = {
@@ -101,6 +102,7 @@ exports.getAllRecords = (url, dataBase, collection, cb) => {
 };
 
 exports.updateData = (url, dataBase, collection,id,data, cb) => {
+	console.log('updating');
 	REQURIED_MODULE.MongoClient.connect(url, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db(dataBase);
