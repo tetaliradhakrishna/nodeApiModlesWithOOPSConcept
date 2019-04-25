@@ -29,4 +29,9 @@ exports.getAll = (cb)=>{
   MONGO_DB_CALLS.getAllRecords(url_config.MONGO_DB, Data_Base , register_userDatabase , cb)	
 };
 
+exports.createNewCollection = (data,cb)=>{ 
+  // this  accepts  URL ,db , collection , data 
+  MONGO_DB_CALLS.createRecord(url_config.MONGO_DB,Data_Base,data.collection,data, cb)	
+};
+
 

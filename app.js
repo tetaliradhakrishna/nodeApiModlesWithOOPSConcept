@@ -37,6 +37,7 @@ app.post('/signUp',routes.signUp);
 app.get('/login',routes.login);
 app.put('/update',routes.update);
 app.get('/getAll',routes.getAll);
+app.post('/createUserColletion',routes.createNewCollection)
 
 
 // start server on the specified port and binding host
