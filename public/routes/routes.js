@@ -19,7 +19,7 @@ exports.signUp = (req, res) => {
 exports.login = (req, res) => {
   //console.log(req.query.id)
 
-  CONNECT_DB.getLoginData(req.query.id, (err, result) => {
+  CONNECT_DB.getLoginData(req.query.id,(err, result) => {
     if (err) {
       res.send(err);
     } else {
@@ -34,7 +34,7 @@ exports.update = (req, res) => {
   // console.log(req.body)
   req.body['ModifiedDate'] = UTILITIES.currentDate();
   req.body['collection'] = req.body.name;
-  CONNECT_DB.updateData(req.body, (err, result) => {
+  CONNECT_DB.updateData(req.body,req.query.collection, (err, result) => {
     if (err) {
       res.send(err);
     } else {
@@ -46,8 +46,9 @@ exports.update = (req, res) => {
 
 exports.getAll = (req, res) => {
   //console.log(req.query.id)
-
-  CONNECT_DB.getAll((err, result) => {
+  // admin send login db calltion if org level  send org level collection 
+  
+  CONNECT_DB.getAll(req.query.collection,(err, result) => {
     if (err) {
       res.send(err);
     } else {
@@ -59,12 +60,13 @@ exports.getAll = (req, res) => {
 
 
 exports.createNewCollection = (req, res) => {
+  
 
   // console.log(req.body);
   // this route will help to the  create the new collection once the admin is  activate the account 
   // with data  create 
 
-  CONNECT_DB.createNewCollectiond(req.body, (err, result) => {
+  CONNECT_DB.createNewCollection(req.body, req.query.collection, (err, result) => {
     if (err) {
       res.send(err);
     } else {
@@ -72,5 +74,4 @@ exports.createNewCollection = (req, res) => {
     }
     res.end();
   })
-
 }
