@@ -71,6 +71,8 @@ exports.fetchLoginData = (url, dataBase, collection, data, cb) => {
 
 
 exports.getAllRecords = (url, dataBase, collection, cb) => {
+
+	console.log(url,dataBase,collection);
 	REQURIED_MODULE.MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 		//console.log('why this calling ');
 		if (err) throw err;

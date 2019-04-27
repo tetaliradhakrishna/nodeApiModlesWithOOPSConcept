@@ -33,7 +33,7 @@ exports.login = (req, res) => {
 exports.update = (req, res) => {
   // console.log(req.body)
   req.body['ModifiedDate'] = UTILITIES.currentDate();
-  req.body['collection'] = req.body.name;
+  req.body['collection'] = req.body.company;
   CONNECT_DB.updateData(req.body,req.query.collection, (err, result) => {
     if (err) {
       res.send(err);
