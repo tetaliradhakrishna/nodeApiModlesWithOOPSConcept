@@ -105,7 +105,7 @@ exports.getAllRecords = (url, dataBase, collection, cb) => {
 
 exports.updateData = (url, dataBase, collection,id,data, cb) => {
 	console.log('updating');
-	REQURIED_MODULE.MongoClient.connect(url, function(err, db) {
+	REQURIED_MODULE.MongoClient.connect(url,{ useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db(dataBase);
 		// this is the  existing name feild  
@@ -125,3 +125,27 @@ exports.updateData = (url, dataBase, collection,id,data, cb) => {
 	  });
 
 }
+
+exports.delete = (url, dataBase, collection,id, cb)=>{
+	
+	//console.log(url);
+
+	REQURIED_MODULE.MongoClient.connect(url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		var dbo = db.db(dataBase);
+		var myquery = { _id: id };
+		dbo.collection(collection).deleteOne(myquery, function(err, obj) {
+		  if (err) throw err;
+		  console.log("1 document deleted");
+		  backStatus = {
+			code: 200,
+			message: 'Deleted'
+		}
+		  cb(null,backStatus)
+		  db.close();
+		});
+	 });
+
+}
+
+ 

@@ -37,6 +37,7 @@ app.post('/signUp',routes.signUp);
 app.get('/login',routes.login);
 app.put('/update',routes.update);
 app.get('/getAll',routes.getAll);
+app.delete('/delete',routes.deleteRecord)
 app.post('/createUserColletion',routes.createNewCollection)
 
 

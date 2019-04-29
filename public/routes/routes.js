@@ -59,6 +59,20 @@ exports.getAll = (req, res) => {
 };
 
 
+exports.deleteRecord =(req,res) =>{
+
+  // for delete just pass the  Id 
+  CONNECT_DB.delete(req.query.id,req.query.collection,(err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(result.code).send({ message: result.message });
+    }
+    res.end();
+  })
+
+}
+
 exports.createNewCollection = (req, res) => {
   
 
