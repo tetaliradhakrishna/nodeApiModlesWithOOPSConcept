@@ -13,7 +13,10 @@ exports.createRegisterUser = (data,cb)=>{
              // this  accepts  URL ,db , collection , data 
              MONGO_DB_CALLS.createRecord(url_config.MONGO_DB,Data_Base,register_userDatabase,data, cb)	
 };
-
+exports.checkUserExists = (data,cb)=>{ 
+  // this  accepts  URL + db + collection + data 
+  MONGO_DB_CALLS.checkUserExists(url_config.MONGO_DB ,Data_Base,register_userDatabase,data, cb)	
+};
 exports.getLoginData = (data,cb)=>{ 
   // this  accepts  URL + db + collection + data 
 

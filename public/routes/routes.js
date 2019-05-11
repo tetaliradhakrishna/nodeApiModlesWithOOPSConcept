@@ -1,7 +1,6 @@
 let CONNECT_DB = require('../modules/db.js');
-let UTILITIES = require('../utilities/utilities.js');
+let UTILITIES = require('../utilities/utilities.js')
 let NODE_DEPENDENCY = require('../services/nodemodules.js');
-
 exports.signUp = (req, res) => {
 
   // console.log(req.body);
@@ -48,8 +47,8 @@ exports.update = (req, res) => {
 exports.getAll = (req, res) => {
   //console.log(req.query.id)
   // admin send login db calltion if org level  send org level collection 
-  
-  CONNECT_DB.getAll(req.query.collection,(err, result) => {
+  //HardCoded COllection Names
+  CONNECT_DB.getAll("emp",(err, result) => {
     if (err) {
       res.send(err);
     } else {
@@ -89,43 +88,54 @@ exports.createNewCollection = (req, res) => {
     }
     res.end();
   })
+}
+exports.checkUserExists = (req, res) => {
+  //console.log(req.query.id)
+  CONNECT_DB.checkUserExists(req.query.username,(err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(result.code).send(result.message);
+    }
+    res.end();
+  })
 };
 
 exports.geoCoords = (req,res)=>{
- // get the geo coords 
- // based on the mcc/ mnc /lac/ cell id 
- // numbers should be in the number format
-
- NODE_DEPENDENCY.http ({
-  "async": true,
-  "crossDomain": true,
-  "url": "https://us1.unwiredlabs.com/v2/process.php",
-  "method": "POST",
-  "headers": {},
-  "processData": false,
-  json: { 
-  "token":"64fc55fde26009",
-  // "radio":"gsm",
-  "mcc":req.body.mcc,
-  "mnc":req.body.mnc,
-  "cells":[
-     {
-        "lac":req.body.lac,
-        "cid":req.body.cid
-     }
-  ]
-}
-
- },( err,response,body )=>{
-   //console.log(err);
-   //console.log(response)
-  //console.log(body);
-  if(err){
-    res.send(err);
-  }else{
-    res.status(200).send(body)
-  }
+  // get the geo coords 
+  // based on the mcc/ mnc /lac/ cell id 
+  // numbers should be in the number format
+ console.log("req"+req)
+  NODE_DEPENDENCY.http ({
+   "async": true,
+   "crossDomain": true,
+   "url": "https://us1.unwiredlabs.com/v2/process.php",
+   "method": "POST",
+   "headers": {},
+   "processData": false,
+   json: { 
+   "token":"64fc55fde26009",
+   // "radio":"gsm",
+   "mcc":req.body.mcc,
+   "mnc":req.body.mnc,
+   "cells":[
+      {
+         "lac":req.body.lac,
+         "cid":req.body.cid
+      }
+   ]
+ }
  
- })
-
-} 
+  },( err,response,body )=>{
+    //console.log(err);
+    //console.log(response)
+   //console.log(body);
+   if(err){
+     res.send(err);
+   }else{
+     res.status(200).send(body)
+   }
+  
+  })
+ 
+ } 
