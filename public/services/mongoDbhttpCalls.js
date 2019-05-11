@@ -2,7 +2,7 @@
 let REQURIED_MODULE = require('../services/nodemodules.js');
 
 exports.createRecord = (url, dataBase, collection, data, cb) => {
-	//console.log('URL'+ url);
+	console.log('URL'+ url+"dbName"+dataBase);
 
 	REQURIED_MODULE.MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 
@@ -147,5 +147,32 @@ exports.delete = (url, dataBase, collection,id, cb)=>{
 	 });
 
 }
+//Ravi new method
+exports.checkUserExists = (url, dataBase, collection, data, cb) => {
+	console.log(url, data);
+	REQURIED_MODULE.MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 
- 
+		let dbo = db.db(dataBase);
+		let myobj = { _id: data };
+		let backStatus;
+
+		//To Return Only Specific Field from Mongodb Use Projection
+		dbo.collection(collection).findOne(myobj,{projection: { _id: true }}, function (err, res) {
+			if (err) {
+				backStatus = {
+					code: 400,
+					message: "Oops!.. somthing went wrong " + err
+				}
+				cb(null, backStatus);
+			} else {
+				console.log('resPonse-->',res);
+				backStatus = {
+					code: 200,
+					message: res
+				}
+				cb(null, backStatus);
+			}
+			db.close();
+		});
+	});
+};

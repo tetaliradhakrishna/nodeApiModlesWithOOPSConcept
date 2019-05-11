@@ -38,10 +38,9 @@ app.get('/login',routes.login);
 app.put('/update',routes.update);
 app.get('/getAll',routes.getAll);
 app.delete('/delete',routes.deleteRecord)
-app.post('/createUserColletion',routes.createNewCollection);
+app.post('/createUserColletion',routes.createNewCollection)
+app.get('/checkUserExists',routes.checkUserExists);
 app.post('/geoFeatch',routes.geoCoords);
-
-
 
 // start server on the specified port and binding host
 app.listen(appEnv.port, '0.0.0.0', function() {
