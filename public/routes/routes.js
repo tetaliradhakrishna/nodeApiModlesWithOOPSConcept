@@ -1,6 +1,7 @@
 let CONNECT_DB = require('../modules/db.js');
 let UTILITIES = require('../utilities/utilities.js')
 let NODE_DEPENDENCY = require('../services/nodemodules.js');
+let NODE_MAILER = require('../services/mailerService.js');
 exports.signUp = (req, res) => {
 
   // console.log(req.body);
@@ -9,7 +10,9 @@ exports.signUp = (req, res) => {
     if (err) {
       res.send(err);
     } else {
-      res.status(result.code).send({ message: result.message });
+      res.status(result.code).send({ message: result.message });      
+       //Email Logic
+       NODE_MAILER.sendEmail(req.body.email)        
     }
     res.end();
   })
@@ -23,11 +26,11 @@ exports.login = (req, res) => {
     if (err) {
       res.send(err);
     } else {
-      res.status(result.code).send(result.message);
+      res.status(result.code).send(result.message);          
     }
-    res.end();
+    res.end();    
   })
-
+  
 };
 
 exports.update = (req, res) => {
@@ -139,3 +142,15 @@ exports.geoCoords = (req,res)=>{
   })
  
  } 
+ exports.activateUserEmail = (req, res) => {
+  // console.log(req.body)
+  
+  CONNECT_DB.activateUserEmail(req.body,req.query.collection, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(result.code).send({ message: result.message });
+    }
+    res.end();
+  })
+};
