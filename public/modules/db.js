@@ -19,7 +19,7 @@ exports.checkUserExists = (data,cb)=>{
 };
 exports.getLoginData = (data,cb)=>{ 
   // this  accepts  URL + db + collection + data 
-
+  console.log('Db Url-->'+url_config.MONGO_DB)
   MONGO_DB_CALLS.fetchLoginData(url_config.MONGO_DB ,Data_Base,register_userDatabase,data, cb)	
 };
 
@@ -46,3 +46,7 @@ exports.createNewCollection = (data,collection,cb)=>{
 };
 
 
+exports.activateUserEmail = (data,collection,cb)=>{ 
+  // this  accepts  URL + db + collection + data 
+  MONGO_DB_CALLS.activateUserEmail(url_config.MONGO_DB ,Data_Base ,register_userDatabase ,data,cb)	
+};

@@ -176,3 +176,27 @@ exports.checkUserExists = (url, dataBase, collection, data, cb) => {
 		});
 	});
 };
+
+exports.activateUserEmail = (url, dataBase, collection,data, cb) => {
+	console.log('updating');
+	REQURIED_MODULE.MongoClient.connect(url,{ useNewUrlParser: true }, function(err, db) {
+		if (err) throw err;
+		var dbo = db.db(dataBase);
+		// this is the  existing name feild  
+		// new values passing to the db and updating the emailVerfied Field to True. 
+		var myquery = { _id:data._id };
+		console.log('Updating...'+data._id);
+		var newvalues = { $set: {emailVerified:true} };
+		dbo.collection(collection).updateOne(myquery, newvalues, function(err, res) {
+		  if (err) throw err;
+		  console.log("1 document updated");
+		  backStatus = {
+			code: 200,
+			message: 'updated'
+		}
+		  cb(null,backStatus)
+		  db.close();
+		});
+	  });
+
+}
