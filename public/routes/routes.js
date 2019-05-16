@@ -2,6 +2,8 @@ let CONNECT_DB = require('../modules/db.js');
 let UTILITIES = require('../utilities/utilities.js')
 let NODE_DEPENDENCY = require('../services/nodemodules.js');
 let NODE_MAILER = require('../services/mailerService.js');
+let CONFIG = require('../services/configirations.js')
+
 exports.signUp = (req, res) => {
 
   // console.log(req.body);
@@ -26,6 +28,7 @@ exports.login = (req, res) => {
     if (err) {
       res.send(err);
     } else {
+      //console.log(result)
       res.status(result.code).send(result.message);          
     }
     res.end();    
@@ -48,10 +51,10 @@ exports.update = (req, res) => {
 };
 
 exports.getAll = (req, res) => {
-  //console.log(req.query.id)
+  //console.log(req.query.collection)
   // admin send login db calltion if org level  send org level collection 
   //HardCoded COllection Names
-  CONNECT_DB.getAll("emp",(err, result) => {
+  CONNECT_DB.getAll(req.query.collection,(err, result) => {
     if (err) {
       res.send(err);
     } else {
@@ -112,12 +115,12 @@ exports.geoCoords = (req,res)=>{
   NODE_DEPENDENCY.http ({
    "async": true,
    "crossDomain": true,
-   "url": "https://us1.unwiredlabs.com/v2/process.php",
+   "url": CONFIG.OPEN_CELLER_ID_URL,
    "method": "POST",
    "headers": {},
    "processData": false,
    json: { 
-   "token":"64fc55fde26009",
+   "token":CONFIG.OPEN_CELLER_ID_TOKEN,
    // "radio":"gsm",
    "mcc":req.body.mcc,
    "mnc":req.body.mnc,
@@ -146,6 +149,21 @@ exports.geoCoords = (req,res)=>{
   // console.log(req.body)
   
   CONNECT_DB.activateUserEmail(req.body,req.query.collection, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(result.code).send({ message: result.message });
+    }
+    res.end();
+  })
+};
+
+
+
+exports.fetchUserbasedRecords = (req, res) => {
+ // this will  fetch the login abse user 
+ console.log(req.query.recordBelongsTo,req.query.collection)
+  CONNECT_DB.fetchTheRecords(req.query.recordBelongsTo,req.query.collection, (err, result) => {
     if (err) {
       res.send(err);
     } else {

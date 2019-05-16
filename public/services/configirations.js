@@ -8,6 +8,9 @@ module.exports = {
    COUCH_PORT:process.env.COUCH_PORT,
    COUCH_USERNAME:'',
    COUCH_PASSWORD:'',
-   MONGO_DB:process.env.MONGO_HOST
+   MONGO_DB:process.env.MONGO_HOST,
+   OPEN_CELLER_ID_TOKEN : process.env.OPEN_CELLER_ID_TOKEN,
+   OPEN_CELLER_ID_URL:process.env.OPEN_CELLER_ID_URL
+
 
 }
