@@ -2,6 +2,7 @@ let CONNECT_DB = require('../modules/db.js');
 let UTILITIES = require('../utilities/utilities.js')
 let NODE_DEPENDENCY = require('../services/nodemodules.js');
 let NODE_MAILER = require('../services/mailerService.js');
+let IMAGE_UPLOAD = require('../utilities/imageUpload.js');
 exports.signUp = (req, res) => {
 
   // console.log(req.body);
@@ -154,3 +155,19 @@ exports.geoCoords = (req,res)=>{
     res.end();
   })
 };
+
+exports.uploadImage = (req,res)=>{
+ //Get the Image File Details to be saved in Mongodb...
+ console.log("Calling")  
+ IMAGE_UPLOAD.upload(req,res,(err)=>{
+  if(err){
+    console.log("Error"+err)  
+  }else{
+    console.log("req"+req.file.fieldname)  
+    console.log("req"+req.file.path)  
+    console.log("req"+req.file.size)  
+    res.status(201).send({ message: 'Uploaded Success' });
+  }
+  res.end();
+ });
+ };
