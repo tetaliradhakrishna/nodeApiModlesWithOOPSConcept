@@ -1,6 +1,10 @@
+
+
 let REQURIED_MODULE = require('./public/services/nodemodules.js');
 
 let app = REQURIED_MODULE.express();
+
+
 // it will get process env varables 
 //https://www.npmjs.com/package/dotenv
 /**
@@ -42,8 +46,8 @@ app.post('/createUserColletion',routes.createNewCollection)
 app.get('/checkUserExists',routes.checkUserExists);
 app.post('/geoFeatch',routes.geoCoords);
 app.put('/activateUserEmail',routes.activateUserEmail);
+app.post('/uploadImage',routes.uploadImage);
 app.get('/fetchUserbasedrecords',routes.fetchUserbasedRecords);
-
 
 
 // start server on the specified port and binding host

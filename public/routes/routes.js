@@ -2,8 +2,9 @@ let CONNECT_DB = require('../modules/db.js');
 let UTILITIES = require('../utilities/utilities.js')
 let NODE_DEPENDENCY = require('../services/nodemodules.js');
 let NODE_MAILER = require('../services/mailerService.js');
-let CONFIG = require('../services/configirations.js')
 
+let IMAGE_UPLOAD = require('../utilities/imageUpload.js');
+let CONFIG = require('../services/configirations.js')
 exports.signUp = (req, res) => {
 
   // console.log(req.body);
@@ -61,7 +62,6 @@ exports.getAll = (req, res) => {
       res.status(result.code).send({ message: result.message });
     }
     res.end();
-  })
 };
 
 
@@ -157,9 +157,21 @@ exports.geoCoords = (req,res)=>{
     res.end();
   })
 };
-
-
-
+exports.uploadImage = (req,res)=>{
+ //Get the Image File Details to be saved in Mongodb...
+ console.log("Calling")  
+ IMAGE_UPLOAD.upload(req,res,(err)=>{
+  if(err){
+    console.log("Error"+err)  
+  }else{
+    console.log("req"+req.file.fieldname)  
+    console.log("req"+req.file.path)  
+    console.log("req"+req.file.size)  
+    res.status(201).send({ message: 'Uploaded Success' });
+  }
+  res.end();
+ });
+ };
 exports.fetchUserbasedRecords = (req, res) => {
  // this will  fetch the login abse user 
  console.log(req.query.recordBelongsTo,req.query.collection)
