@@ -47,6 +47,9 @@ app.get('/checkUserExists',routes.checkUserExists);
 app.post('/geoFeatch',routes.geoCoords);
 app.put('/activateUserEmail',routes.activateUserEmail);
 app.post('/uploadImage',routes.uploadImage);
+app.get('/fetchUserbasedrecords',routes.fetchUserbasedRecords);
+
+
 // start server on the specified port and binding host
 app.listen(appEnv.port, '0.0.0.0', function() {
 // app.listen(3000, 'localhost', function() { //test locally

@@ -7,6 +7,7 @@ let register_userDatabase = 'dblogins';
 let Data_Base = "s4Solutions";
 let design_Doc = '_design/s4SolutionsDesDoc/_view/'
 let fetch_Query = 'fetchLogin?key=';
+let geoLocationData = "geoLocation";
 
 
 exports.createRegisterUser = (data,cb)=>{ 
@@ -19,7 +20,7 @@ exports.checkUserExists = (data,cb)=>{
 };
 exports.getLoginData = (data,cb)=>{ 
   // this  accepts  URL + db + collection + data 
-  console.log('Db Url-->'+url_config.MONGO_DB)
+  //console.log('Db Url-->'+url_config.MONGO_DB)
   MONGO_DB_CALLS.fetchLoginData(url_config.MONGO_DB ,Data_Base,register_userDatabase,data, cb)	
 };
 
@@ -45,8 +46,12 @@ exports.createNewCollection = (data,collection,cb)=>{
   MONGO_DB_CALLS.createRecord(url_config.MONGO_DB,Data_Base,collection,data, cb)	
 };
 
-
 exports.activateUserEmail = (data,collection,cb)=>{ 
   // this  accepts  URL + db + collection + data 
   MONGO_DB_CALLS.activateUserEmail(url_config.MONGO_DB ,Data_Base ,register_userDatabase ,data,cb)	
+};
+
+exports.fetchTheRecords = (id,collection,cb)=>{ 
+  // this  accepts  URL + db + collection + data 
+  MONGO_DB_CALLS.fetchTheUserData(url_config.MONGO_DB ,Data_Base ,id,collection,cb)	
 };
