@@ -50,6 +50,17 @@ app.post('/uploadImage',routes.uploadImage);
 app.get('/fetchUserbasedrecords',routes.fetchUserbasedRecords);
 
 
+/**
+ * Store installed app data
+ * If the user is exits in the Db update with this data 
+ * If not create and in the same Database 
+ */
+
+app.get('/fetchSimData',routes.simdata);
+app.put('/updateSimData',routes.updateWithSimData);
+app.post('/createNewSimdata',routes.createNewSimUser);
+
+
 // start server on the specified port and binding host
 app.listen(appEnv.port, '0.0.0.0', function() {
 // app.listen(3000, 'localhost', function() { //test locally

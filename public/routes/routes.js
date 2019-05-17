@@ -40,7 +40,6 @@ exports.login = (req, res) => {
 exports.update = (req, res) => {
   // console.log(req.body)
   req.body['ModifiedDate'] = UTILITIES.currentDate();
-  req.body['collection'] = req.body.company;
   CONNECT_DB.updateData(req.body,req.query.collection, (err, result) => {
     if (err) {
       res.send(err);
@@ -62,6 +61,7 @@ exports.getAll = (req, res) => {
       res.status(result.code).send({ message: result.message });
     }
     res.end();
+  });
 };
 
 
@@ -184,3 +184,45 @@ exports.fetchUserbasedRecords = (req, res) => {
     res.end();
   })
 };
+
+// sim info
+
+exports.simdata = (req, res) => {
+  //console.log(req.query.simNumber)
+
+  CONNECT_DB.fetchTheRecords(req.query.simNumber,req.query.collection,(err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      //console.log(result)
+      res.status(result.code).send(result.message);          
+    }
+    res.end();    
+  })
+  
+};
+
+exports.updateWithSimData = (req, res) => {
+  // console.log(req.body)
+  req.body['ModifiedDate'] = UTILITIES.currentDate();
+  CONNECT_DB.updateData(req.body,req.query.collection, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(result.code).send({ message: result.message });
+    }
+    res.end();
+  })
+};
+
+exports.createNewSimUser = (req, res) => {
+  
+  CONNECT_DB.createNewCollection(req.body, req.query.collection, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(result.code).send({ message: result.message });
+    }
+    res.end();
+  })
+}
