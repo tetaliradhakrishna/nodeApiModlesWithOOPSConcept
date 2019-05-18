@@ -175,7 +175,7 @@ exports.uploadImage = (req,res)=>{
 exports.fetchUserbasedRecords = (req, res) => {
  // this will  fetch the login abse user 
  console.log(req.query.recordBelongsTo,req.query.collection)
-  CONNECT_DB.fetchTheRecords(req.query.recordBelongsTo,req.query.collection, (err, result) => {
+  CONNECT_DB.fetchTheRecords(req.query.recordBelongsTo,req.query.collection,"contactBelongsTo", (err, result) => {
     if (err) {
       res.send(err);
     } else {
@@ -190,7 +190,7 @@ exports.fetchUserbasedRecords = (req, res) => {
 exports.simdata = (req, res) => {
   //console.log(req.query.simNumber)
 
-  CONNECT_DB.fetchTheRecords(req.query.simNumber,req.query.collection,(err, result) => {
+  CONNECT_DB.fetchTheRecords(req.query.simNumber,req.query.collection,"simNumber",(err, result) => {
     if (err) {
       res.send(err);
     } else {

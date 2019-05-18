@@ -201,8 +201,14 @@ exports.activateUserEmail = (url, dataBase, collection,data, cb) => {
 
 }
 
-exports.fetchTheUserData =  (url, dataBase,id,collection, cb)=>{
-	console.log('fetch the data ',dataBase,id,collection );
+exports.fetchTheUserData =  (url,dataBase,id,collection,query, cb)=>{
+
+	/**
+	 * This fucntion accept url + database + id + collection + query 
+	 * Query == based on the which parmeter what to fetch the data from db 
+	 * If matched the data cb with data id not return  empty 
+	 */
+	console.log('fetch the data ' );
 	REQURIED_MODULE.MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 		//console.log('why this calling ');
 		if (err) throw err;
@@ -214,7 +220,7 @@ exports.fetchTheUserData =  (url, dataBase,id,collection, cb)=>{
 		cursor.each(function (err, item) {
 
 			if (item !== null) {
-				if(item.contactBelongsTo == id){
+				if(item[query] == id){
 					FinalData.push(item);
 				}
 			

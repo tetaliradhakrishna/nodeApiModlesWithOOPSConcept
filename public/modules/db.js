@@ -51,7 +51,7 @@ exports.activateUserEmail = (data,collection,cb)=>{
   MONGO_DB_CALLS.activateUserEmail(url_config.MONGO_DB ,Data_Base ,register_userDatabase ,data,cb)	
 };
 
-exports.fetchTheRecords = (id,collection,cb)=>{ 
+exports.fetchTheRecords = (id,collection,query,cb)=>{ 
   // this  accepts  URL + db + collection + data 
-  MONGO_DB_CALLS.fetchTheUserData(url_config.MONGO_DB ,Data_Base ,id,collection,cb)	
+  MONGO_DB_CALLS.fetchTheUserData(url_config.MONGO_DB ,Data_Base ,id,collection,query,cb)	
 };
