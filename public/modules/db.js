@@ -26,6 +26,8 @@ exports.getLoginData = (data,cb)=>{
 
 exports.updateData = (data,collection,cb)=>{ 
   // this  accepts  URL + db + collection + data 
+  //console.log(data,collection);
+ 
   MONGO_DB_CALLS.updateData(url_config.MONGO_DB ,Data_Base ,collection ,data._id , data , cb)	
 };
 exports.getAll = (collection,cb)=>{ 

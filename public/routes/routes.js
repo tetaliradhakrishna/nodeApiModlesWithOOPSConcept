@@ -203,7 +203,7 @@ exports.simdata = (req, res) => {
 };
 
 exports.updateWithSimData = (req, res) => {
-  // console.log(req.body)
+ console.log(req.body)
   req.body['ModifiedDate'] = UTILITIES.currentDate();
   CONNECT_DB.updateData(req.body,req.query.collection, (err, result) => {
     if (err) {
