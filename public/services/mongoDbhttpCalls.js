@@ -20,7 +20,7 @@ exports.createRecord = (url, dataBase, collection, data, cb) => {
 				cb(null, backStatus);
 			} else {
 				if (res.result.ok == 1) {
-					console.log("inside if ");
+					console.log(" created inside if ");
 					backStatus = {
 						code: 201,
 						message: "Data submitted successfully."

@@ -49,6 +49,9 @@ app.put('/activateUserEmail',routes.activateUserEmail);
 app.post('/uploadImage',routes.uploadImage);
 app.get('/fetchUserbasedrecords',routes.fetchUserbasedRecords);
 
+// geo location every one hour 
+app.post('/StoreGeoLocation',routes.storeGeoLocation);
+
 
 /**
  * Store installed app data

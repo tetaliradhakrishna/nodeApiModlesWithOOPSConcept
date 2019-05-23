@@ -226,3 +226,22 @@ exports.createNewSimUser = (req, res) => {
     res.end();
   })
 }
+
+exports.storeGeoLocation = (req, res) => {
+
+
+  //console.log(req.body,req.query.collection);
+
+  req.body['createdDate'] = UTILITIES.currentDate();
+  CONNECT_DB.create(req.body,req.query.collection, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(result.code).send({ message: result.message });      
+       //Email Logic
+       NODE_MAILER.sendEmail(req.body.email)        
+    }
+    res.end();
+  })
+
+}
