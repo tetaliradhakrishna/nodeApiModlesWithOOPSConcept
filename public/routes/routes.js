@@ -111,7 +111,9 @@ exports.geoCoords = (req,res)=>{
   // get the geo coords 
   // based on the mcc/ mnc /lac/ cell id 
   // numbers should be in the number format
- console.log("req"+req)
+ console.log("req" +JSON.stringify(req.body));
+ console.log(CONFIG.OPEN_CELLER_ID_URL)
+
   NODE_DEPENDENCY.http ({
    "async": true,
    "crossDomain": true,
@@ -164,12 +166,18 @@ exports.uploadImage = (req,res)=>{
   if(err){
     console.log("Error"+err)  
   }else{
-    console.log("req"+req.file.fieldname)  
-    console.log("req"+req.file.path)  
-    console.log("req"+req.file.size)  
-    res.status(201).send({ message: 'Uploaded Success' });
+     req.file['createdDate'] = UTILITIES.currentDate();
+     req.file['simNumber'] = req.file.originalname.split(".jpg")[0];
+    console.log("req data from ionic -->"+ JSON.stringify(req.file)) 
+    CONNECT_DB.createNewCollection(req.file, req.query.collection, (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(result.code).send({ message: result.message });
+    }
+    res.end();
+  })
   }
-  res.end();
  });
  };
 exports.fetchUserbasedRecords = (req, res) => {
@@ -226,3 +234,20 @@ exports.createNewSimUser = (req, res) => {
     res.end();
   })
 }
+
+exports.fetchEmpImagesData = (req,res) =>{
+   //console.log(req.query.id)
+   // fetch images 
+   console.log("images data",req.query.id,req.query.collection)
+ CONNECT_DB.fetchTheRecords(req.query.id,req.query.collection,"simNumber", (err, result) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.status(result.code).send({ message: result.message });
+    }
+    res.end();
+  })
+
+}
+
+89918540400106693985

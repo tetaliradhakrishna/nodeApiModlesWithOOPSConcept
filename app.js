@@ -18,6 +18,7 @@ app.use(REQURIED_MODULE.bodyParser.urlencoded({
   extended: true
 }));
 
+app.use(REQURIED_MODULE.bodyParser.json({limit: '50mb'}));
 // get the app environment from Cloud Foundry
 let appEnv = REQURIED_MODULE.cfenv.getAppEnv();
 
@@ -59,6 +60,7 @@ app.get('/fetchUserbasedrecords',routes.fetchUserbasedRecords);
 app.get('/fetchSimData',routes.simdata);
 app.put('/updateSimData',routes.updateWithSimData);
 app.post('/createNewSimdata',routes.createNewSimUser);
+app.get('/fetchEmpImages',routes.fetchEmpImagesData)
 
 
 // start server on the specified port and binding host

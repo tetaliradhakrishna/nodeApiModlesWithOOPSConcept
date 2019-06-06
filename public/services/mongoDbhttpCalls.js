@@ -208,7 +208,7 @@ exports.fetchTheUserData =  (url,dataBase,id,collection,query, cb)=>{
 	 * Query == based on the which parmeter what to fetch the data from db 
 	 * If matched the data cb with data id not return  empty 
 	 */
-	console.log('fetch the data ' );
+console.log('fetch the data ' ,dataBase ,id,collection,query);
 	REQURIED_MODULE.MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
 		//console.log('why this calling ');
 		if (err) throw err;
@@ -218,8 +218,10 @@ exports.fetchTheUserData =  (url,dataBase,id,collection,query, cb)=>{
 		// Execute the each command, triggers for each document
 		let FinalData = [];
 		cursor.each(function (err, item) {
+			//console.log(item)
 
 			if (item !== null) {
+				console.log( id);
 				if(item[query] == id){
 					FinalData.push(item);
 				}
@@ -242,3 +244,4 @@ exports.fetchTheUserData =  (url,dataBase,id,collection,query, cb)=>{
 	});
 
 }
+

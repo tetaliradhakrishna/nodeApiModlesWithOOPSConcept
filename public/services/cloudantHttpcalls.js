@@ -6,7 +6,7 @@ let response_handle = require('../ErrorHandling/errorResponse.js');
 
 exports.createRecord = (url,data,cb)=>{   
 
-     // console.log(url,data);
+     console.log(url,data);
    REQURIED_MODULE.http({
          uri:url,
          method:"POST",

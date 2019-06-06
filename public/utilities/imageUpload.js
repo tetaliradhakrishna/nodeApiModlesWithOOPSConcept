@@ -6,8 +6,8 @@ var path  = require('path');
 const storage=multer.diskStorage({
     destination: './public/uploads/',
     filename:function(req,file,cb){
-      console.log("FIle-->"+file);  
-      console.log("FIleName-->"+file.fieldname);  
+      //console.log("FIle-->"+file);  
+      //console.log("FIleName-->"+file.fieldname);  
       cb(null,file.fieldname +'-'+ Date.now() +path.extname(file.originalname));
     }
   });
