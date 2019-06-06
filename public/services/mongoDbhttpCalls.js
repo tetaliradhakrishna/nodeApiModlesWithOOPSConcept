@@ -221,7 +221,7 @@ console.log('fetch the data ' ,dataBase ,id,collection,query);
 			//console.log(item)
 
 			if (item !== null) {
-				console.log( id);
+				//console.log( id);
 				if(item[query] == id){
 					FinalData.push(item);
 				}
