@@ -13,7 +13,7 @@ let app = REQURIED_MODULE.express();
  */
 require('dotenv').config()
 app.use(REQURIED_MODULE.cors())
-app.use(REQURIED_MODULE.express.static(__dirname + '/public'));
+app.use(REQURIED_MODULE.express.static(__dirname + '/public/uploads'));
 app.use(REQURIED_MODULE.bodyParser.urlencoded({
   extended: true
 }));
@@ -32,6 +32,7 @@ app.use(function(req, res, next) {
 // our Angular code is sending JSON data, but your Express app is parsing it as
 // URL encoded data.
 app.use(REQURIED_MODULE.bodyParser.json());
+
 app.get('/',(req,res)=>{
      res.sendFile('./public/index.html');
 })
