@@ -259,14 +259,34 @@ let convertnamesTogeoCoords = require('../services/geoCoords.js') //convertNameT
 exports.convertGeoCords = (req, res) => {
 
   // this is the sync function wait 1 min and process the next value 
-  getOneByOne();
-  async function getOneByOne() {
-    let coords = {
-      from: await convertnamesTogeoCoords.convertNameToCoords(req.query.from),
-      to: await convertnamesTogeoCoords.convertNameToCoords(req.query.to)
-    }
-    res.status(200).send({ message: coords });
-  }
+
+
+  url  = "https://maps.googleapis.com/maps/api/directions/json?origin="+ req.query.from +"&destination=" +req.query.to +"Studios+Hollywood&key=" + CONFIG.GOOGLE_API_KEY
+
+
+   NODE_DEPENDENCY.http({
+     uri: url,   
+   },(error,response,body)=>{
+           if(error){
+             console.log(error);
+             
+           }else{
+             console.log(response.statusCode);
+            let parse = JSON.parse(body);
+             //console.log(body);
+            // console.log( "-------------- ",parse.routes);
+             res.status(200).send({ message:parse.routes  });
+            
+           }
+   })
+  // getOneByOne();
+  // async function getOneByOne() {
+  //   let coords = {
+  //     from: await convertnamesTogeoCoords.convertNameToCoords(req.query.from),
+  //     to: await convertnamesTogeoCoords.convertNameToCoords(req.query.to)
+  //   }
+  //   res.status(200).send({ message: coords });
+  // }
 }
 
 
