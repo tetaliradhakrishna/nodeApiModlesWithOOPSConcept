@@ -88,6 +88,8 @@ exports.createNewCollection = (req, res) => {
   // this route will help to the  create the new collection once the admin is  activate the account 
   // with data  create 
 
+  req.body['createdDate'] = UTILITIES.currentDate();
+  
   CONNECT_DB.createNewCollection(req.body, req.query.collection, (err, result) => {
     if (err) {
       res.send(err);
@@ -251,6 +253,7 @@ exports.fetchEmpImagesData = (req, res) => {
   })
 
 }
+
 
 let convertnamesTogeoCoords = require('../services/geoCoords.js') //convertNameToCoords
 
