@@ -72,6 +72,8 @@ app.post('/createNewSimdata', routes.createNewSimUser);
 
 app.get('/getGeoCoords', routes.convertGeoCords);
 app.post('/StoreGeoLocation', routes.createNewCollection);
+// this api will accept  collection name /  id 
+app.get('/getGeoReportAsPerTheClient',routes.fetchUserbasedRecords)
 
 // start server on the specified port and binding host
 app.listen(8888, '0.0.0.0', function () {
