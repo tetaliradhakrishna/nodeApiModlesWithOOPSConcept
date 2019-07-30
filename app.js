@@ -34,7 +34,7 @@ app.use(function (req, res, next) {
 app.use(REQURIED_MODULE.bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.sendFile('./public/index.html');
+ res.send(' Hello with oops.');
 })
 
 let routes = require('./public/routes/routes.js');

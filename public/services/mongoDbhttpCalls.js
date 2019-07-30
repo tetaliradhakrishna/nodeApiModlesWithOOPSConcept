@@ -222,11 +222,14 @@ console.log('fetch the data ' ,dataBase ,id,collection,query);
 
 			if (item !== null) {
 				//console.log( id);
+				if(item[query] != undefined){
+
+				
 				if(item[query] == id){
 					FinalData.push(item);
 				}
 			
-				//console.log('still pushing....');
+                      }				//console.log('still pushing....');
 			} else {
 				console.log('no more records')
 				backStatus = {
