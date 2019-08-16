@@ -146,6 +146,7 @@ exports.geoCoords = (req, res) => {
       res.send(err);
     } else {
       res.status(200).send(body)
+      console.log("req" + JSON.stringify(body));
     }
 
   })
@@ -263,12 +264,16 @@ exports.convertGeoCords = (req, res) => {
 
   // this is the sync function wait 1 min and process the next value 
 
+console.log("req.query.to",req.query.to,req.query.from);
 
-  url  = "https://maps.googleapis.com/maps/api/directions/json?origin="+ req.query.from +"&destination=" +req.query.to +"Studios+Hollywood&key=" + CONFIG.GOOGLE_API_KEY
+  url  = "https://maps.googleapis.com/maps/api/directions/json?origin="+ 
+          req.query.from +"&destination=" +req.query.to + "&key=" + CONFIG.GOOGLE_API_KEY;
 
+console.log(url);
 
    NODE_DEPENDENCY.http({
      uri: url,   
+     method:""
    },(error,response,body)=>{
            if(error){
              console.log(error);
@@ -277,7 +282,7 @@ exports.convertGeoCords = (req, res) => {
              console.log(response.statusCode);
             let parse = JSON.parse(body);
              //console.log(body);
-            // console.log( "-------------- ",parse.routes);
+             console.log( "-------------- ",parse);
              res.status(200).send({ message:parse.routes  });
             
            }

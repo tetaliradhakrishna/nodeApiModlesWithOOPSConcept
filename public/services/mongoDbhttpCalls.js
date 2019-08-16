@@ -218,12 +218,12 @@ console.log('fetch the data ' ,dataBase ,id,collection,query);
 		// Execute the each command, triggers for each document
 		let FinalData = [];
 		cursor.each(function (err, item) {
-			//console.log(item)
+			///console.log(item)
 
 			if (item !== null) {
-				//console.log( id);
+				//console.log( ' send by user ',id);
+				//console.log('item query  from data bse ',item[query] )
 				if(item[query] != undefined){
-
 				
 				if(item[query] == id){
 					FinalData.push(item);
