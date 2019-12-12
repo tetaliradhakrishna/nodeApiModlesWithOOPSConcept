@@ -11,7 +11,7 @@ module.exports = {
    MONGO_DB:process.env.MONGO_HOST,
    OPEN_CELLER_ID_TOKEN : process.env.OPEN_CELLER_ID_TOKEN,
    OPEN_CELLER_ID_URL:process.env.OPEN_CELLER_ID_URL,
-   GOOGLE_API_KEY:process.env.GOOGLE_API_KEY 
-
+   GOOGLE_API_KEY:process.env.GOOGLE_API_KEY, 
+   WEB_URL:process.env.WEB_URL
 
 }
