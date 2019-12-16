@@ -9,6 +9,7 @@ module.exports = {
     MongoClient: require('mongodb').MongoClient,
     http: require('request'),
     cors: require('cors'),
-    NodeGeocoder: require('node-geocoder')
+    NodeGeocoder: require('node-geocoder'),
+    uuidv1:require('uuid/v1')
 
 }

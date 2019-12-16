@@ -6,15 +6,21 @@ let NODE_MAILER = require('../services/mailerService.js');
 let IMAGE_UPLOAD = require('../utilities/imageUpload.js');
 let CONFIG = require('../services/configirations.js');
 
+const LOGGER = require('../services/logHandler.js')
+
 
 exports.signUp = (req, res) => {
 
   // console.log(req.body);
   req.body['createdDate'] = UTILITIES.currentDate();
+  req.body['guid'] = NODE_DEPENDENCY.uuidv1();
+
   CONNECT_DB.createRegisterUser(req.body, (err, result) => {
     if (err) {
       res.send(err);
+      LOGGER.log("SignUp Error", LOGGER.error,err)
     } else {
+      LOGGER.log("SignUp success", LOGGER.success,req.body.guid)
       res.status(result.code).send({ message: result.message });
       //Email Logic
       NODE_MAILER.sendEmail(req.body.email)
@@ -29,9 +35,12 @@ exports.login = (req, res) => {
 
   CONNECT_DB.getLoginData(req.query.id, (err, result) => {
     if (err) {
+      const msg = "login Error with: " + req.query.id; 
+      LOGGER.log(msg, LOGGER.error,err)
       res.send(err);
     } else {
       //console.log(result)
+      LOGGER.log("SignUp success", LOGGER.success,req.query.id)
       res.status(result.code).send(result.message);
     }
     res.end();
@@ -44,8 +53,11 @@ exports.update = (req, res) => {
   req.body['ModifiedDate'] = UTILITIES.currentDate();
   CONNECT_DB.updateData(req.body, req.query.collection, (err, result) => {
     if (err) {
+      const msg = "update Error with: " + req.query.collection; 
+      LOGGER.log(msg, LOGGER.error,err)
       res.send(err);
     } else {
+      LOGGER.log("Update Data success", LOGGER.info,req.query.collection)
       res.status(result.code).send({ message: result.message });
     }
     res.end();
@@ -58,8 +70,11 @@ exports.getAll = (req, res) => {
   //HardCoded COllection Names
   CONNECT_DB.getAll(req.query.collection, (err, result) => {
     if (err) {
+      const msg = "update Error with collection: " + req.query.collection; 
+      LOGGER.log(msg, LOGGER.error,err)
       res.send(err);
     } else {
+      LOGGER.log("Get all Data success", LOGGER.info,req.query.collection)
       res.status(result.code).send({ message: result.message });
     }
     res.end();
@@ -69,11 +84,16 @@ exports.getAll = (req, res) => {
 
 exports.deleteRecord = (req, res) => {
 
+  const msg ='';
   // for delete just pass the  Id 
   CONNECT_DB.delete(req.query.id, req.query.collection, (err, result) => {
     if (err) {
+       msg = "delete record:"+   req.query.id +"Error with collection  : " + req.query.collection; 
+      LOGGER.log(msg, LOGGER.error,err)
       res.send(err);
     } else {
+      msg = "Deleted record with "+ req.query.id + " in the collection" + req.query.collection
+      LOGGER.log(msg, LOGGER.info,req.query.collection)
       res.status(result.code).send({ message: result.message });
     }
     res.end();
@@ -92,8 +112,11 @@ exports.createNewCollection = (req, res) => {
   
   CONNECT_DB.createNewCollection(req.body, req.query.collection, (err, result) => {
     if (err) {
+      msg = " NEW Collection creation record Error: " + req.query.collection; 
+      LOGGER.log(msg, LOGGER.error,err)
       res.send(err);
     } else {
+      LOGGER.log("New Collection is Created with Name ", LOGGER.info,req.query.collection)
       res.status(result.code).send({ message: result.message });
     }
     res.end();
@@ -103,8 +126,11 @@ exports.checkUserExists = (req, res) => {
   //console.log(req.query.id)
   CONNECT_DB.checkUserExists(req.query.username, (err, result) => {
     if (err) {
+      msg = "checkUserExists Error: " + req.query.username; 
+      LOGGER.log(msg, LOGGER.error,err)
       res.send(err);
     } else {
+      LOGGER.log("checkUserExists ", LOGGER.info,req.query.username)
       res.status(result.code).send(result.message);
     }
     res.end();
@@ -143,10 +169,13 @@ exports.geoCoords = (req, res) => {
     //console.log(response)
     //console.log(body);
     if (err) {
+      msg = "geoCoords fetch error : " + req.body.guid; 
+      LOGGER.log(msg, LOGGER.error,err)
       res.send(err);
     } else {
-      res.status(200).send(body)
+      LOGGER.log("geoCoords fetched success fully ", LOGGER.info,req.body.guid)
       console.log("req" + JSON.stringify(body));
+      res.status(200).send(body)
     }
 
   })
@@ -157,8 +186,11 @@ exports.activateUserEmail = (req, res) => {
 
   CONNECT_DB.activateUserEmail(req.body, req.query.collection, (err, result) => {
     if (err) {
+      msg = "activateUserEmail error : " + req.body.guid; 
+      LOGGER.log(msg, LOGGER.error,err)
       res.send(err);
     } else {
+      LOGGER.log("activateUserEmail fetched success fully ", LOGGER.info,req.body.guid)
       res.status(result.code).send({ message: result.message });
     }
     res.end();
@@ -169,6 +201,8 @@ exports.uploadImage = (req, res) => {
   console.log("Calling")
   IMAGE_UPLOAD.upload(req, res, (err) => {
     if (err) {
+      msg = "uploadImage error : " + req.body.guid; 
+      LOGGER.log(msg, LOGGER.error,err)
       console.log("Error" + err)
     } else {
       req.file['createdDate'] = UTILITIES.currentDate();
@@ -176,8 +210,11 @@ exports.uploadImage = (req, res) => {
       console.log("req data from ionic -->" + JSON.stringify(req.file))
       CONNECT_DB.createNewCollection(req.file, req.query.collection, (err, result) => {
         if (err) {
+          msg = "database store  error : " + req.query.collection; 
+          LOGGER.log(msg, LOGGER.error,err)
           res.send(err);
         } else {
+          LOGGER.log("uploadImage fetched successfully ", LOGGER.info,req.body.guid)
           res.status(result.code).send({ message: result.message });
         }
         res.end();

@@ -1,7 +1,6 @@
 
 
 let REQURIED_MODULE = require('./public/services/nodemodules.js');
-
 let app = REQURIED_MODULE.express();
 
 
@@ -12,6 +11,7 @@ let app = REQURIED_MODULE.express();
  * Call the below  path it will  call the procee varabiles
  */
 require('dotenv').config()
+
 app.use(REQURIED_MODULE.cors())
 app.use(REQURIED_MODULE.express.static(__dirname + '/public/uploads'));
 app.use(REQURIED_MODULE.bodyParser.urlencoded({
@@ -33,7 +33,12 @@ app.use(function (req, res, next) {
 // URL encoded data.
 app.use(REQURIED_MODULE.bodyParser.json());
 
+// Log handler
+
+ const Logger = require('./public/services/logHandler.js')
+
 app.get('/', (req, res) => {
+
  res.send(' Hello with oops.');
 })
 
@@ -80,5 +85,6 @@ app.listen(8888, '0.0.0.0', function () {
   // app.listen(3000, 'localhost', function() { //test locally
   // print a message when the server starts listening
   console.log("server starting on " + appEnv.url);
+  Logger.logs("Node GEO API Running ,UP " ,"success","Port:8888")
 });
 
